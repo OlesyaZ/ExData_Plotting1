@@ -1,10 +1,12 @@
 setwd("~/Documents/Olesya/Exploratory Data Analys ")
 dataset <- read.table("household_power_consumption.txt",sep=";", quote="\"",
                       stringsAsFactors = FALSE) 
+## subsetting to dates 2007-02-01 and 2007-02-02
 dataset[[1]]<-as.Date(dataset[[1]],"%d/%m/%Y")
 data1<-which(dataset=="2007-02-01")
 data2<-which(dataset=="2007-02-02")
 datasubset<-dataset[data1[1]:data2[length(data2)],]
+# merge Data and Time columns in one and convert it to classes representing date/time
 
 DT<-as.POSIXct(paste(datasubset[[1]], datasubset[[2]]), "%Y-%m-%d %H:%M:%S")
 
@@ -13,8 +15,8 @@ datasubset[,8]<-as.numeric(datasubset[,8]) ##Sub metering 2
 datasubset[,9]<-as.numeric(datasubset[,9]) ##Sub metering 3
 datasubset[,3]<-as.numeric(datasubset[,3]) ##Global active power
 datasubset[,5]<-as.numeric(datasubset[,5]) ##Voltage
-datasubset[,4]<-as.numeric(datasubset[,4]) ##Global Intensity
-
+datasubset[,4]<-as.numeric(datasubset[,4]) ##Global reactive power
+## creates PNG file 
 png(filename = "plot4.png", width = 480, height = 480, units = "px", pointsize = 12,
     bg = "white") 
    par(mfrow=c(2,2))
